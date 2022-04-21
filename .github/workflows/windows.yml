@@ -15,7 +15,7 @@ jobs:
 
     strategy:
       matrix:
-        platform: ["win", "uwp"]
+        platform: ["win"]
         arch: ["x86", "x64", "ARM"]
         exclude:
           - platform: win
