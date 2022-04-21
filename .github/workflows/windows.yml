@@ -35,27 +35,6 @@ jobs:
       - name: Add msbuild to PATH
         uses: microsoft/setup-msbuild@v1.1
 
-      - name: Setup vcpkg
-        uses: lukka/run-vcpkg@v10.0
-        if: ${{ matrix.platform == 'win' }}
-        with:
-          #vcpkgGitCommitId: 9231937a9a2b57f4bda7a724af4f3743ace81cc0 
-          vcpkgGitCommitId: 9502b2044d7fbe7a885f824f58e0b672e8b74886 # https://github.com/shimat/vcpkg/commit/9502b2044d7fbe7a885f824f58e0b672e8b74886
-          vcpkgGitURL: https://github.com/shimat/vcpkg.git
-
-      - name: Vcpkg
-        shell: powershell
-        if: ${{ matrix.platform == 'win' }}
-        run: |
-          echo ${env:VCPKG_ROOT}
-          & ${env:VCPKG_ROOT}\vcpkg install tesseract:${{matrix.arch}}-windows-static
-          & ${env:VCPKG_ROOT}\vcpkg integrate install
-          & ${env:VCPKG_ROOT}\vcpkg list
-          ls ${env:VCPKG_ROOT}\installed
-          ls ${env:VCPKG_ROOT}\installed\${{matrix.arch}}-windows-static
-          ls ${env:VCPKG_ROOT}\installed\${{matrix.arch}}-windows-static\include
-          ls ${env:VCPKG_ROOT}\installed\${{matrix.arch}}-windows-static\lib
-
       - name: Build OpenCV
         shell: powershell
         run: |
